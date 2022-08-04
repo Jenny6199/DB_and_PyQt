@@ -13,10 +13,22 @@
 должен создаваться с помощью функции ip-address().
 """
 
+import os
+import subprocess
 import ipaddress
 import art
 import tabulate
 
 
-def host_ping():
-    pass
+def host_ping(node_list):
+    art.tprint("host ping", font="rnt-medium")
+    result = {}
+    for addr in node_list:
+        pass
+    return
+
+
+if __name__ == '__main__':
+
+    work_list = ['8.8.8.8',]
+    host_ping(work_list)
