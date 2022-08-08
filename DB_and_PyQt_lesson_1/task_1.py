@@ -49,7 +49,7 @@ def check_ip_address(node):
     return ip_v4
 
 
-def host_ping(node_list):
+def host_ping(node_list, show_result=False):
     """
     Функция проверяет доступность сетевых узлов посредством утилиты ping
     Каждый узел проверяется в отдельном процессе.
@@ -81,15 +81,18 @@ def host_ping(node_list):
         
         if response.wait() == 0:
             result['Доступные адреса'].append(str(ipv4))
-            print(f'{ipv4} - узел доступен. \n')
+            report = f'{ipv4} - узел доступен. \n'
         else:
             result['Недоступные адреса'].append(str(ipv4))
-            print(f'{ipv4} - узел недоступен. \n')
+            report = f'{ipv4} - узел недоступен. \n'
+        if show_result:
+            print(report)
 
-    print('\n', 'Результаты проверки:', '\n', '='*50, '\n',)
-    pprint(result)
+    if show_result:
+        print('\n', 'Результаты проверки:', '\n', '='*50, '\n',)
+        pprint(result)
     return result
 
 
 if __name__ == '__main__':
-    host_ping(work_list)
+    host_ping(work_list, show_result=True)

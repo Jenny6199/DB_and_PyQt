@@ -45,7 +45,7 @@ def host_range_ping():
 
     checking_hosts = []
     [checking_hosts.append(str(ipv4_start + el)) for el in range(int(number_of_node))]
-    host_ping(checking_hosts)
+    return host_ping(checking_hosts)
 
 
 if __name__ == '__main__':
