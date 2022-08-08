@@ -19,6 +19,7 @@ import platform
 import subprocess
 from pprint import pprint
 from ipaddress import ip_address
+from art import text2art
 
 
 # Список узлов для тестирования
@@ -60,7 +61,8 @@ def host_ping(node_list):
     Каждый узел проверяется в отдельном потоке.
     :param node_list - список узлов
     """
-    print('\n', 'Проверка доступности узлов', '\n', '='*50, '\n',)
+    print(text2art('---Check IP---'))
+    print('\n', 'Программа проверки доступности узлов', '\n', '='*50, '\n',)
     for node in node_list:
         try:
             ipv4 = check_ip_address(node)
@@ -81,7 +83,7 @@ def host_ping(node_list):
         else:
             result['Недоступные адреса'].append(ipv4)
             print(f'{ipv4} - узел недоступен. \n')
-               
+
     print('\n', 'Результаты проверки:', '\n', '='*50, '\n',)
     pprint(result)
     return
