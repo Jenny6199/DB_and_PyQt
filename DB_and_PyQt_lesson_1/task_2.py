@@ -9,10 +9,17 @@
 По результатам проверки должно выводиться соответствующее сообщение.
 """
 
-def host_range_ping():
+import ipaddress
+
+
+def host_range_ping(ipv4):
     """doc"""
-    pass
+    for i in range(50):
+        ipv4 += 1
+        print(ipv4)
+    
 
 
 if __name__ == '__main__':
-    host_range_ping()
+    i = ipaddress.ip_address('192.168.0.250')
+    host_range_ping(i)

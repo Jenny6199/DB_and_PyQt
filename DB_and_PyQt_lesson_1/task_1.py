@@ -58,7 +58,7 @@ def check_ip_address(node):
 def host_ping(node_list):
     """
     Функция проверяет доступность сетевых узлов посредством утилиты ping
-    Каждый узел проверяется в отдельном потоке.
+    Каждый узел проверяется в отдельном процессе.
     :param node_list - список узлов
     """
     print(text2art('---Check IP---'))
@@ -78,10 +78,10 @@ def host_ping(node_list):
         )
         
         if response.wait() == 0:
-            result['Доступные адреса'].append(ipv4)
+            result['Доступные адреса'].append(str(ipv4))
             print(f'{ipv4} - узел доступен. \n')
         else:
-            result['Недоступные адреса'].append(ipv4)
+            result['Недоступные адреса'].append(str(ipv4))
             print(f'{ipv4} - узел недоступен. \n')
 
     print('\n', 'Результаты проверки:', '\n', '='*50, '\n',)
@@ -91,4 +91,3 @@ def host_ping(node_list):
 
 if __name__ == '__main__':
     host_ping(work_list)
-    
