@@ -32,12 +32,6 @@ work_list = [
     '41.14.254.11',
 ]
 
-# Словарь с результатами проверки узлов
-result = {
-    'Доступные адреса': [],
-    'Недоступные адреса': [],
-}
-
 
 def check_ip_address(node):
     """
@@ -61,8 +55,16 @@ def host_ping(node_list):
     Каждый узел проверяется в отдельном процессе.
     :param node_list - список узлов
     """
-    print(text2art('---Check IP---'))
+
+    print(text2art('___IP-checker___'))
     print('\n', 'Программа проверки доступности узлов', '\n', '='*50, '\n',)
+
+    # Словарь с результатами проверки узлов
+    result = {
+        'Доступные адреса': [],
+        'Недоступные адреса': [],
+    }
+    # В цикле проверяем узлы и формируем процессы
     for node in node_list:
         try:
             ipv4 = check_ip_address(node)
@@ -86,7 +88,7 @@ def host_ping(node_list):
 
     print('\n', 'Результаты проверки:', '\n', '='*50, '\n',)
     pprint(result)
-    return
+    return result
 
 
 if __name__ == '__main__':
