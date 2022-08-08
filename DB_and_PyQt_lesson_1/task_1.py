@@ -1,0 +1,79 @@
+"""
+Практическое задание к уроку №1 курса "Базы данных и PyQt"
+Студент: Максим Сапунов, Jenny6199@yandex.ru
+Преподаватель: Илья Барбылев
+
+Задача №1.
+Написать функцию host_ping() в которой с помощью утилиты ping будет
+проверяться доступность сетевых узлов. Аргументом функции является
+список, в котором каждый сетевой узел должен быть представлен именем
+хоста или ip-адрессом. В функции необходимо перебирать ip-адреса и
+проверять их доступность с выводом соответствующего сообщения
+("Узел доступен", "Узел недоступен"). При этом ip-адресс сетвеого узла
+должен создаваться с помощью функции ip-address().
+"""
+
+import platform
+import subprocess
+from pprint import pprint
+from ipaddress import ip_address
+
+
+# Список узлов для тестирования
+work_list = [
+    '8.8.8.8', 
+    '127.16.2.27', 
+    'yandex.ru', 
+    'hello_world',
+]
+
+# Словарь с результатами проверки узлов
+result = {
+    'Доступные адреса': [],
+    'Недоступные адреса': [],
+}
+
+
+def check_ip_address(node):
+    """
+    :param node (str) - строка переданная для проверки
+    :return 
+    """
+    try:
+        ip_v4 = ip_address(node)
+        print(f'{node} - корректный ip-адрес')
+    except ValueError:
+        raise Exception(f'{node} - не являтеся ip-адресом')
+    return ip_v4
+
+
+def host_ping(node_list):
+    """doc"""
+    print('Проверка доступности узлов')
+    for node in node_list:
+        try:
+            ipv4 = check_ip_address(node)
+        except Exception as e:
+            print(f'{e}, будет проверен как доменное имя')
+            ipv4 = node
+
+        param = '-n' if platform.system().lower() == 'windows' else '-c'
+        
+        response = subprocess.Popen(
+            ["ping", param, '1', '-w', '1', str(ipv4)], 
+            stdout=subprocess.DEVNULL,
+        )
+        
+        if response.wait() == 0:
+            result['Доступные адреса'].append(ipv4)
+            print(f'{ipv4} - узел доступен.')
+        else:
+            result['Недоступные адреса'].append(ipv4)
+            print(f'{ipv4} - узел недоступен.')
+    pprint(result)
+    return
+
+
+if __name__ == '__main__':
+    host_ping(work_list)
+    
