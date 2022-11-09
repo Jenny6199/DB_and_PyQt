@@ -54,6 +54,7 @@ def host_ping(node_list, show_result=False):
     Функция проверяет доступность сетевых узлов посредством утилиты ping
     Каждый узел проверяется в отдельном процессе.
     :param node_list - список узлов
+    :param show_result - bool - вывод на дисплей промежуточных результатов.
     """
 
     print(text2art('___IP-checker___'))
